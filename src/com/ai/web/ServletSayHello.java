@@ -6,11 +6,14 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 
-@javax.servlet.annotation.WebServlet(name = "ServletSayHello")
+@javax.servlet.annotation.WebServlet(name = "ServletSayHello",urlPatterns = "/sayhello",initParams = {
+        @WebInitParam(name="name",value = "伍珂")
+})
 public class ServletSayHello extends javax.servlet.http.HttpServlet {
 
     private ServletConfig config;
@@ -20,14 +23,13 @@ public class ServletSayHello extends javax.servlet.http.HttpServlet {
         this.config = config;
     }
 
+
+
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
 
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-
-
-
         //获取所有的初始化参数
         Enumeration<String> e = config.getInitParameterNames();
         while(e.hasMoreElements()){
@@ -35,13 +37,11 @@ public class ServletSayHello extends javax.servlet.http.HttpServlet {
             String value = config.getInitParameter(paramName);
         }
 
-
         String name = config.getInitParameter("name");
         String param = request.getParameter("name");
         if (param == null || param.length() == 0) {
             param = name;
         }
-
 
         /**
          * ServletConfig对象中维护了ServletContext对象的引用，开发人员在编写servlet时，
@@ -56,7 +56,7 @@ public class ServletSayHello extends javax.servlet.http.HttpServlet {
         String contextInitParam = context.getInitParameter("url");
 
         // 方法一：设置字符编码
-        response.setContentType("text/html;text/html;charset=UTF-8");
+        //response.setContentType("text/html;text/html;charset=UTF-8");
 
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();

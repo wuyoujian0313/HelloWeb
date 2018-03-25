@@ -14,19 +14,77 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+    <!--配置过滤器-->
+    <filter>
+        <filter-name>FilterUTF8</filter-name>
+        <filter-class>com.ai.web.FilterUTF8</filter-class>
+
+        <!--配置FilterUTF8过滤器的初始化参数-->
+        <init-param>
+            <description>配置FilterUTF8过滤器的初始化参数</description>
+            <param-name>name</param-name>
+            <param-value>uf8</param-value>
+        </init-param>
+        <init-param>
+            <description>配置FilterUTF8过滤器的初始化参数</description>
+            <param-name>like</param-name>
+            <param-value>java</param-value>
+        </init-param>
+    </filter>
+
+    <!--映射过滤器-->
+    <filter-mapping>
+        <filter-name>FilterUTF8</filter-name>
+        <!--“/*”表示拦截所有的请求 -->
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--配置过滤器-->
+    <filter>
+        <filter-name>FilterAnnotationHandler</filter-name>
+        <filter-class>com.ai.web.annotation.FilterAnnotationHandler</filter-class>
+        <init-param>
+            <description>配置要扫描包及其子包, 如果有多个包,以逗号分隔</description>
+            <param-name>basePackage</param-name>
+            <param-value>com.ai.web</param-value>
+        </init-param>
+    </filter>
+
+    <!--映射过滤器-->
+    <filter-mapping>
+        <filter-name>FilterAnnotationHandler</filter-name>
+        <url-pattern>/webservletex</url-pattern>
+    </filter-mapping>
+
+
+    <!--<servlet>-->
+        <!--<servlet-name>ServletSayHello</servlet-name>-->
+        <!--<servlet-class>com.ai.web.ServletSayHello</servlet-class>-->
+
+        <!--<init-param>-->
+            <!--<param-name>name</param-name>-->
+            <!--<param-value>伍珂</param-value>-->
+        <!--</init-param>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>ServletSayHello</servlet-name>-->
+        <!--<url-pattern>/sayhello</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <servlet>
-        <servlet-name>ServletSayHello</servlet-name>
-        <servlet-class>com.ai.web.ServletSayHello</servlet-class>
-
+        <servlet-name>AnnotationHandleServlet</servlet-name>
+        <servlet-class>com.ai.web.annotation.AnnotationHandleServlet</servlet-class>
         <init-param>
-            <param-name>name</param-name>
-            <param-value>伍珂</param-value>
+            <description>配置要扫描包及其子包, 如果有多个包,以逗号分隔</description>
+            <param-name>basePackage</param-name>
+            <param-value>com.ai.web</param-value>
         </init-param>
+        <load-on-startup>1</load-on-startup>
     </servlet>
+
     <servlet-mapping>
-        <servlet-name>ServletSayHello</servlet-name>
-        <url-pattern>/sayhello</url-pattern>
+        <servlet-name>AnnotationHandleServlet</servlet-name>
+        <url-pattern>*.do</url-pattern>
     </servlet-mapping>
 
     <servlet>
